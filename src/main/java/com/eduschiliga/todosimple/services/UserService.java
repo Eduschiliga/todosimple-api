@@ -1,7 +1,6 @@
  package com.eduschiliga.todosimple.services;
 
 import com.eduschiliga.todosimple.models.User;
-import com.eduschiliga.todosimple.repositories.TaskRepository;
 import com.eduschiliga.todosimple.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
-
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
 
@@ -30,7 +26,6 @@ public class UserService {
     public User create(User obj) {
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
 
