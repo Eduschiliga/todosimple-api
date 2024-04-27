@@ -1,5 +1,6 @@
 package com.eduschiliga.todosimple.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -37,7 +38,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private List<Task> tasks = new ArrayList<Task>();
+    private List<Task> tasks = new ArrayList<>();
 
     public User() {
     }
@@ -72,6 +73,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonIgnore
     public List<Task> getTasks() { return tasks; }
 
     public void setTasks(List<Task> tasks) { this.tasks = tasks; }
@@ -83,8 +85,6 @@ public class User {
         User other = (User) obj;
         if (this.id == null) {
             if (other.id != null) {
-                return false;
-            } else if (!this.id.equals(other.id)) {
                 return false;
             }
         }
